@@ -1,7 +1,7 @@
 
 /// <reference path="../typings/index.d.ts" />
 
-$(function () {
+//$(function () {
   
     var CONST = Object.freeze({
         CAROUSEL_INTERVAL: 3000,
@@ -32,19 +32,43 @@ $(function () {
     
     
     //moue over indicator changes rotation direction to backward
-    $('#indicators').on('mouseover', function() { carouselDirection = !CONST.CAROUSEL_FORWARD;});
-    //Mouse out bakc to default rotation
-    $('#indicators').on('mouseout', function() { carouselDirection = CONST.CAROUSEL_FORWARD;});
-    setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL);
-  
+    // $('#indicators').on('mouseover', function() { carouselDirection = !CONST.CAROUSEL_FORWARD;});
+    // //Mouse out bakc to default rotation
+    $('#carousel').on('mouseout', function() { clearInterval(window.sliderInterval); 
+        carouselDirection = CONST.CAROUSEL_FORWARD;
+        sliderInterval = setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL);    
+    });
+    $('#carousel').on('mouseover', function() { clearInterval(window.sliderInterval) ;});
+
+    $('#left').on('click', function() {  
+        //carouselDirection = CONST.CAROUSEL_FORWARD; 
+        rotateCarousel(CONST.CAROUSEL_FORWARD);
+    });
+
+    $('#right').on('click', function() {  
+        //carouselDirection = !CONST.CAROUSEL_FORWARD; 
+        rotateCarousel(!CONST.CAROUSEL_FORWARD);
+    });
+    
+    var sliderInterval = setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL);
+   
     // function rotateCarousel() { 
     //     $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, CONST.CAROUSEL_MOVE_TIME, moveFirstSlide);
         
     // }
 
 
-    function rotateCarousel() { 
-        if (carouselDirection ) { 
+    
+
+    function rotateCarousel(dir) { 
+        var direction;
+        if (dir !== undefined ) {
+            direction = dir;
+        } else {
+            direction = carouselDirection;
+        }            
+
+        if (direction ) { 
             $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, CONST.CAROUSEL_MOVE_TIME, moveFirstSlide);
         } else {
             $carouselList.animate({'marginLeft': 0 }, CONST.CAROUSEL_MOVE_TIME, moveLastSlide);
@@ -109,4 +133,4 @@ $(function () {
         $('li[data-list-item ="' + index + '"]').removeClass('active');
     }
 
-}); 
+//}); 
