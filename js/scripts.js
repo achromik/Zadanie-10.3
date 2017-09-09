@@ -11,7 +11,13 @@ $(function () {
     });
 
     //initialize carousel 
-    var $carouselList = $('#js-carousel ul');
+    var sliderInterval,
+        $carouselList = $('#js-carousel ul'),
+        //default rotation forward
+        carouselDirection = CONST.CAROUSEL_FORWARD,
+        //get first and last image 
+        $firstItem = $carouselList.find('li:first'),
+        $lastItem = $carouselList.find('li:last');
     
     
     addIndicators();  
@@ -20,23 +26,14 @@ $(function () {
         $(this).attr('item', index);
     });
 
-    //get first and last image 
-    var $firstItem = $carouselList.find('li:first'),
-        $lastItem = $carouselList.find('li:last');
-
     //set last image before first and set left margin to value of image width
     $firstItem.before($lastItem);
     $carouselList.css({marginLeft: -CONST.CAROUSEL_IMAGE_WIDTH});
 
-    //default rotation forward
-    var carouselDirection=CONST.CAROUSEL_FORWARD;
+    //start slider
+    sliderInterval = setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL); 
     
-
-     //start slider
-     var sliderInterval = setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL); 
-    
-    
-
+    //change slider rotation direction on button click
     $('#js-direction').on('click', 'button', function(e) {
         switch (e.target.id) {
             case 'js-backward': 
@@ -50,23 +47,24 @@ $(function () {
     });  
     
     //start rotation when mouse out
-    $('#js-carousel').on('mouseout', function() { clearInterval(sliderInterval); 
+    $('#js-carousel').on('mouseout', function() { 
+        clearInterval(sliderInterval); 
         carouselDirection = CONST.CAROUSEL_FORWARD;
         sliderInterval = setInterval(rotateCarousel, CONST.CAROUSEL_INTERVAL);    
     });
 
     //stop rotation when mouse on slider
-    $('#js-carousel').on('mouseover', function() { clearInterval(sliderInterval) ;});
+    $('#js-carousel').on('mouseover', function() { 
+        clearInterval(sliderInterval);
+    });
 
     //previous slide 
     $('#js-left').on('click', function() {  
-        //carouselDirection = CONST.CAROUSEL_FORWARD; 
         rotateCarousel(!CONST.CAROUSEL_FORWARD);
     });
 
     //next slide
     $('#js-right').on('click', function() {  
-        //carouselDirection = !CONST.CAROUSEL_FORWARD; 
         rotateCarousel(CONST.CAROUSEL_FORWARD);
     });
 
@@ -78,6 +76,7 @@ $(function () {
             diffBetweenItems=0,
             carouselLength = $carouselList.find('li').length,
             i=0;
+
         $currentItem = $carouselList.find('li:nth-child(2)');
         diffBetweenItems = $selectedItemIndex - $currentItem.attr('item');
 
@@ -109,10 +108,6 @@ $(function () {
     });
     
 
-   
-   
-    
-
     function rotateCarousel(dir) { 
         var direction;
         if (dir !== undefined ) {
@@ -134,12 +129,11 @@ $(function () {
         var $firstItem = $carouselList.find('li:first'),
             $lastItem = $carouselList.find('li:last'),
 
-            //get current image index wich is second in table of list item (because last id is before first - it's prepare to backward rotaion )
+            //get current image index wich is second in table of list item (because last id is before first - it's prepare to backward rotation )
             $currentItem = $carouselList.find('li:nth-child(2)').attr('item'); 
 
         //set first item after last    
         $lastItem.after($firstItem);
-
         removeIndicatorClassActive($currentItem);
         //get id of current displayed item
         $currentItem = $carouselList.find('li:nth-child(2)').attr('item');
@@ -148,6 +142,7 @@ $(function () {
         $carouselList.css({marginLeft:-CONST.CAROUSEL_IMAGE_WIDTH});
     }
 
+
     function moveBackwardSlide() {
         var $firstItem = $carouselList.find('li:first'),
             $lastItem = $carouselList.find('li:last'),
@@ -155,32 +150,37 @@ $(function () {
 
         $firstItem.before($lastItem);
         removeIndicatorClassActive($currentItem);
-     
-        $carouselList.css({marginLeft:-CONST.CAROUSEL_IMAGE_WIDTH});
+        
         $currentItem = $carouselList.find('li:nth-child(2)').attr('item');
      
         setIndicatorClassActive($currentItem);
+        $carouselList.css({marginLeft:-CONST.CAROUSEL_IMAGE_WIDTH});
     }
+
 
     //add idicators to carousel to each item of list
     function addIndicators() {
-        var $carouselDiv = $('#js-carousel'),
+        var $indicatorsList,
+            $carouselDiv = $('#js-carousel'),
             $carouselListItems = $('#js-carousel > ul > li');
+    
         $carouselDiv.append('<div id="js-indicators"><ol></ol></div>');
-        var $indicatorsList = $('#js-indicators ol');
+        $indicatorsList = $('#js-indicators ol');
 
         for( var i = 0; i < $carouselListItems.length; i++ ) {
             $indicatorsList.append('<li data-list-item="' + i +'"></li>' ).addClass('indicator');
             
-            //set ative to indicator of first item of list  
-            setIndicatorClassActive(0);  
-        }
 
+        }
+            //set ative to indicator of first item of list  
+            setIndicatorClassActive(0);          
     }
+
 
     function setIndicatorClassActive(index) {
         $('li[data-list-item ="' + index + '"]').addClass('active');
     }
+
 
     function removeIndicatorClassActive(index) {
         $('li[data-list-item ="' + index + '"]').removeClass('active');
