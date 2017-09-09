@@ -1,4 +1,3 @@
-
 /// <reference path="../typings/index.d.ts" />
 
 $(function () {
@@ -84,42 +83,46 @@ $(function () {
         if (diffBetweenItems > 0) {
             if (diffBetweenItems <= carouselLength/2 ) { 
                 for ( i = 0; i < diffBetweenItems; i++) {    
-                    $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, 350, moveForwardSlide); 
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
+
                 }
                 
             } else { 
                 for ( i = 0; i < carouselLength - diffBetweenItems; i++) {    
-                    $carouselList.animate({'marginLeft': 0 }, 350, moveBackwardSlide);
+                    rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
                 } 
             }
         } else {
             if (Math.abs(diffBetweenItems) <= carouselLength/2 ) { 
                 for ( i = 0; i < Math.abs(diffBetweenItems); i++) {   
-                    $carouselList.animate({'marginLeft': 0 }, 350, moveBackwardSlide); 
+                    rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
                     
                 }
                 
             } else { 
                 for ( i = 0; i < carouselLength - Math.abs(diffBetweenItems); i++) {    
-                    $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, 350, moveForwardSlide);  
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
                 } 
             }
         }
     });
     
 
-    function rotateCarousel(dir) { 
-        var direction;
+    function rotateCarousel(dir, time) { 
+        var direction,
+            moveTime;
         if (dir !== undefined ) {
             direction = dir;
         } else {
             direction = carouselDirection;
-        }            
+        }
+        /*jshint -W030 */
+        time !== undefined  ? moveTime = time : moveTime = CONST.CAROUSEL_MOVE_TIME;
 
         if (direction ) { 
-            $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, CONST.CAROUSEL_MOVE_TIME, moveForwardSlide);
+            $carouselList.animate({'marginLeft': -2*CONST.CAROUSEL_IMAGE_WIDTH}, moveTime, moveForwardSlide);
         } else {
-            $carouselList.animate({'marginLeft': 0 }, CONST.CAROUSEL_MOVE_TIME, moveBackwardSlide);
+            $carouselList.animate({'marginLeft': 0 }, moveTime, moveBackwardSlide);
         }
 
     }
