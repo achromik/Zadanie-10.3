@@ -29,8 +29,6 @@ $(function () {
 
         for( var i = 0; i < $carouselListItems.length; i++ ) {
             $indicatorsList.append('<li data-list-item="' + i +'"></li>' ).addClass('indicator');
-            
-
         }
         //set ative to indicator of first item of list  
         setIndicatorClassActive(0);          
