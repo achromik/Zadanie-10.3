@@ -4,7 +4,7 @@ $(function () {
   
     var CONST = Object.freeze({
         CAROUSEL_INTERVAL: 3000,
-        CAROUSEL_MOVE_TIME: 500,
+        CAROUSEL_MOVE_TIME: 700,
         CAROUSEL_IMAGE_WIDTH: 480,
         CAROUSEL_FORWARD : 1, 
     });
