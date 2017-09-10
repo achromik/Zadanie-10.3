@@ -4,7 +4,7 @@ $(function () {
   
     var CONST = Object.freeze({
         CAROUSEL_INTERVAL: 3000,
-        CAROUSEL_MOVE_TIME: 700,
+        CAROUSEL_MOVE_TIME: 500,
         CAROUSEL_IMAGE_WIDTH: 480,
         CAROUSEL_FORWARD : 1, 
     });
@@ -83,13 +83,13 @@ $(function () {
         if (diffBetweenItems > 0) {
             if (diffBetweenItems <= carouselLength/2 ) { 
                 for ( i = 0; i < diffBetweenItems; i++) {    
-                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2); 
 
                 }
                 
             } else { 
                 for ( i = 0; i < carouselLength - diffBetweenItems; i++) {    
-                    rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
+                    rotateCarousel(!CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2);
                 } 
             }
         } else {
@@ -101,7 +101,7 @@ $(function () {
                 
             } else { 
                 for ( i = 0; i < carouselLength - Math.abs(diffBetweenItems); i++) {    
-                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2); 
                 } 
             }
         }
