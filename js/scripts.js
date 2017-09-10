@@ -99,9 +99,7 @@ $(function () {
             if (diffBetweenItems <= carouselLength/2 ) { 
                 for ( i = 0; i < diffBetweenItems; i++) {    
                     rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
-
                 }
-                
             } else { 
                 for ( i = 0; i < carouselLength - diffBetweenItems; i++) {    
                     rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
@@ -111,9 +109,7 @@ $(function () {
             if (Math.abs(diffBetweenItems) <= carouselLength/2 ) { 
                 for ( i = 0; i < Math.abs(diffBetweenItems); i++) {   
                     rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
-                    
                 }
-                
             } else { 
                 for ( i = 0; i < carouselLength - Math.abs(diffBetweenItems); i++) {    
                     rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
