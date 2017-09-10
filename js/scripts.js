@@ -98,21 +98,21 @@ $(function () {
         if (diffBetweenItems > 0) {
             if (diffBetweenItems <= carouselLength/2 ) { 
                 for ( i = 0; i < diffBetweenItems; i++) {    
-                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2); 
                 }
             } else { 
                 for ( i = 0; i < carouselLength - diffBetweenItems; i++) {    
-                    rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
+                    rotateCarousel(!CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2);
                 } 
             }
         } else {
             if (Math.abs(diffBetweenItems) <= carouselLength/2 ) { 
                 for ( i = 0; i < Math.abs(diffBetweenItems); i++) {   
-                    rotateCarousel(!CONST.CAROUSEL_FORWARD, 350);
+                    rotateCarousel(!CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2);
                 }
             } else { 
                 for ( i = 0; i < carouselLength - Math.abs(diffBetweenItems); i++) {    
-                    rotateCarousel(CONST.CAROUSEL_FORWARD, 350); 
+                    rotateCarousel(CONST.CAROUSEL_FORWARD, CONST.CAROUSEL_MOVE_TIME / 2); 
                 } 
             }
         }
