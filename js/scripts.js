@@ -18,8 +18,25 @@ $(function () {
         $firstItem = $carouselList.find('li:first'),
         $lastItem = $carouselList.find('li:last');
     
-    
-    addIndicators();  
+    //add indicators and set first of them as active
+    (function () {
+        var $indicatorsList,
+            $carouselDiv = $('#js-carousel'),
+            $carouselListItems = $('#js-carousel > ul > li');
+
+        $carouselDiv.append('<div id="js-indicators"><ol></ol></div>');
+        $indicatorsList = $('#js-indicators ol');
+
+        for( var i = 0; i < $carouselListItems.length; i++ ) {
+            $indicatorsList.append('<li data-list-item="' + i +'"></li>' ).addClass('indicator');
+            
+
+        }
+        //set ative to indicator of first item of list  
+        setIndicatorClassActive(0);          
+    }());
+
+
     //add to each list item attrbute 'item' whit index of position in list (first is 0)
     $carouselList.children('li').each(function(index,elements) {
         $(this).attr('item', index);
@@ -158,25 +175,6 @@ $(function () {
      
         setIndicatorClassActive($currentItem);
         $carouselList.css({marginLeft:-CONST.CAROUSEL_IMAGE_WIDTH});
-    }
-
-
-    //add idicators to carousel to each item of list
-    function addIndicators() {
-        var $indicatorsList,
-            $carouselDiv = $('#js-carousel'),
-            $carouselListItems = $('#js-carousel > ul > li');
-    
-        $carouselDiv.append('<div id="js-indicators"><ol></ol></div>');
-        $indicatorsList = $('#js-indicators ol');
-
-        for( var i = 0; i < $carouselListItems.length; i++ ) {
-            $indicatorsList.append('<li data-list-item="' + i +'"></li>' ).addClass('indicator');
-            
-
-        }
-            //set ative to indicator of first item of list  
-            setIndicatorClassActive(0);          
     }
 
 
