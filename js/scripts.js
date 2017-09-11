@@ -19,7 +19,7 @@ $(function () {
         $lastItem = $carouselList.find('li:last');
     
     //add indicators and set first of them as active
-    (function () {
+    (function addIndicators() {
         var $indicatorsList,
             $carouselDiv = $('#js-carousel'),
             $carouselListItems = $('#js-carousel > ul > li');
@@ -54,10 +54,9 @@ $(function () {
                 carouselDirection = !CONST.CAROUSEL_FORWARD;
                 break;
             case 'js-forward':
-                /* falls through */
-            default:
                 carouselDirection=CONST.CAROUSEL_FORWARD;
-        }    
+                break; 
+          }    
     });  
     
     //start rotation when mouse out
